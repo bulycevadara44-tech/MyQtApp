@@ -13,8 +13,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v3
+    - name: Setup Qt
+      uses: jurplel/setup-qt@v3
       with:
         qt-version: '6.7.1'
         host: 'windows'
