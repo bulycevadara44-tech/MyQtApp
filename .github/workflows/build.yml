@@ -1,0 +1,37 @@
+name: Build Windows EXE (Qt 6.7.1 + MinGW)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        qt-version: '6.7.1'
+        target: 'win64_mingw81_64'
+
+    - name: Configure and Build
+      run: |
+        qmake.exe -spec win32-g++ "CONFIG+=release"
+        mingw32-make.exe
+
+    - name: Collect Artifacts
+      run: |
+        mkdir artifacts
+        copy *.exe artifacts\
+        copy *.dll artifacts\
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: MyApp-Windows
+        path: artifacts/
