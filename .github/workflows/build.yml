@@ -17,7 +17,9 @@ jobs:
       uses: jurplel/install-qt-action@v3
       with:
         qt-version: '6.7.1'
-        target: 'win64_mingw81_64'
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win64_mingw81_64'
 
     - name: Configure and Build
       run: |
